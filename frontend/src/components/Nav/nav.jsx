@@ -1,15 +1,32 @@
-import React from "react"
-import "./courses.css"
-import { coursesCard } from "../../dummydata"
+import React,{useState} from 'react'
+import { coursesCard } from '../../dummydata';
 import { Link } from "react-router-dom"
+import './nav.css'
 
-const CoursesCard = () => {
+const Nav  = () => {
+    const [searchTerm, setSearchTerm] = useState("");
   return (
     <>
-      <section className='coursesCard'>
-        <div className='container grid2'>
-          {coursesCard.map((val) => (
-            <div className='items'>
+    <div>
+      <div className="searchInput_Container">
+        <input id="searchInput" type="text" placeholder="Search here..." onChange={(event) => {
+          setSearchTerm(event.target.value);
+        }} />
+      </div>
+      <div className="container grid2">
+        {
+          coursesCard 
+            .filter((val) => {
+              if(searchTerm == ""){
+                return val;
+              }else if(val.coursesName.toLowerCase().includes(searchTerm.toLowerCase())){
+                return val;
+              }
+            })
+            .map((val) => {
+              return(
+                <div className="coursesCard" >
+                 <div className='items' >
             <Link to={`course/${val.id}`} className='course-link'>
               <div className='content flex'>
                 <div className='left'>
@@ -52,12 +69,14 @@ const CoursesCard = () => {
               <button className='outline-btn'>ENROLL NOW !</button>
               </Link>
             </div>
-          ))}
-          
-        </div>
-      </section>
-    </>
+                </div> 
+              )
+            })
+        }
+      </div>
+    </div>
+  </>
   )
 }
 
-export default CoursesCard
+export default Nav

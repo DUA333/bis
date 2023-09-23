@@ -10,6 +10,8 @@ import Contact from "./components/contact/Contact"
 import Footer from "./components/common/footer/Footer"
 import Home from "./components/home/Home"
 import login from "./pages/login/login"
+import Payment from "./pages/Payment/payment"
+import Course from "./pages/course/course"
 function App() {
   return (
     <>
@@ -17,13 +19,16 @@ function App() {
       <Switch>
         {/* Routes without header and footer */}
         <Route exact path='/Login' component={login} />
+        <Route exact path='/payment/:id' component={Payment} />
+        <Route exact path='/courses' component={CourseHome} />
+        <Route path="/course/:id" component={Course} />
+       
         
         {/* Routes with header and footer */}
-        <Route path={['/', '/about', '/courses', '/team', '/pricing', '/journal', '/contact']} >
+        <Route path={['/', '/about', '/team', '/pricing', '/journal', '/contact']} >
           <Header />
           <Route exact path='/' component={Home} />
           <Route exact path='/about' component={About} />
-          <Route exact path='/courses' component={CourseHome} />
           <Route exact path='/team' component={Team} />
           <Route exact path='/pricing' component={Pricing} />
           <Route exact path='/journal' component={Blog} />
